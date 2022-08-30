@@ -1,0 +1,81 @@
+// 将键绑定放入此文件中以覆盖默认值
+[
+    {
+        "key": "ctrl+k ctrl+u",
+        "command": "editor.action.transformToUppercase"
+    },
+    {
+        "key": "ctrl+k ctrl+l",
+        "command": "editor.action.transformToLowercase"
+    },
+    {
+        "key": "shift+alt+t",
+        "command": "trailing-spaces.deleteTrailingSpaces"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "telesoho.MarkdownPaste",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "-telesoho.MarkdownPaste",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "wwm.aligncode"
+    },
+    {
+        "key": "ctrl+alt+i",
+        "command": "workbench.action.toggleDevTools",
+        "when": "isDevelopment"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "-workbench.action.toggleDevTools",
+        "when": "isDevelopment"
+    },
+    {
+        "key": "ctrl+alt+i",
+        "command": "-workbench.action.toggleDevTools"
+    },
+    {
+        "key": "ctrl+alt+b ctrl+alt+m",
+        "command": "bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+m ctrl+alt+l",
+        "command": "bookmarks.jumpToNext",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+l",
+        "command": "-bookmarks.jumpToNext",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+g ctrl+c",
+        "command": "github.copilot.generate",
+        "when": "editorTextFocus && github.copilot.activated"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-github.copilot.generate",
+        "when": "editorTextFocus && github.copilot.activated"
+    },
+    {
+        "key": "ctrl+t ctrl+m",
+        "command": "workbench.action.toggleMenuBar"
+    },
+    {
+        "key": "ctrl+shift+v ctrl+shift+i",
+        "command": "toggleVim"
+    }
+]
