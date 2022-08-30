@@ -5,4 +5,4 @@
 - [x] vim
 - [x] vscode
 - [ ] Windows
-  - [ ] host
+  - [x] host
