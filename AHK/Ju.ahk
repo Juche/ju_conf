@@ -89,7 +89,8 @@ GroupAdd vimGroup, ahk_exe nvim-qt.exe
                 ; send, {LControl Down}{s}{LControl Up}
                 ; 适配vim通用操作
                 Send, {Esc}
-                send, {:w!}{Enter}
+                ; send, {:w!}{Enter}
+                send, {:w!}
                 PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
                 ; toggleIME()
             return
