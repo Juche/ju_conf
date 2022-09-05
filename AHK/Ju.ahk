@@ -85,48 +85,59 @@ SwitchIME()
     }
 }
 
+GroupAdd vimGroup, ahk_exe Code.exe
+GroupAdd vimGroup, ahk_exe nvim.exe
+GroupAdd vimGroup, ahk_exe nvim-qt.exe
+
 ; 全局使用 Shift 和 CapsLock 切换中英文
 Shift::
     PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认状态(中文)
+Return
 Capslock::
+    SetCapsLockState, alwaysoff
     PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
 
-    GroupAdd vimGroup, ahk_exe Code.exe
-    GroupAdd vimGroup, ahk_exe nvim.exe
-    GroupAdd vimGroup, ahk_exe nvim-qt.exe
     ; 在 vim 系使用 CapsLock 回到 Normal 模式 & 保存,同时也切换到了英文输入模式
-    #IfWinActive ahk_group vimGroup
-        SetCapsLockState, alwaysoff
-        ; Shift::
-        ;     ; Send {LWin Down}{Space}{LWin Up}
-        ;     ; SwitchIME()
-        ;     PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
-        ; return
-        Capslock::
-            Send, {Esc}
-            send, {LControl Down}{s}{LControl Up}
-            ; PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+    ; #IfWinActive ahk_group vimGroup
+    if(WinActive("ahk_group vimGroup"))
+    {
+        Send, {Esc}
+        send, {LControl Down}{s}{LControl Up}
         return
-        ; Capslock::
-        ;     Send {LControl Down}
-        ;     KeyWait, CapsLock
-        ;     Send {LControl Up}
-        ;     if ( A_PriorKey = "CapsLock" )
-        ;     {
-        ;         $Esc::
-        ;             ; 0x0050 is WM_INPUTLANGCHANGEREQUEST
-        ;             ; PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
-        ;             PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
-        ;         ^Esc::
-        ;             ; switchIMEbyID(IMEmap["en"])
-        ;             ; switchIMEbyID(67699721)
-        ;             send, {LControl Down}{s}{LControl Up}
-        ;             ; 适配vim通用操作
-        ;             ; Send, {Esc}
-        ;             ; send, {:w!}{Enter}
-        ;             ; PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
-        ;             ; toggleIME()
-        ;         return
-        ;     }
+    }
 
-        ;     return
+return
+;     SetCapsLockState, alwaysoff
+;     ; Shift::
+;     ;     ; Send {LWin Down}{Space}{LWin Up}
+;     ;     ; SwitchIME()
+;     ;     PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
+;     ; return
+;     Capslock::
+;         Send, {Esc}
+;         send, {LControl Down}{s}{LControl Up}
+;         ; PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+;     return
+; Capslock::
+;     Send {LControl Down}
+;     KeyWait, CapsLock
+;     Send {LControl Up}
+;     if ( A_PriorKey = "CapsLock" )
+;     {
+;         $Esc::
+;             ; 0x0050 is WM_INPUTLANGCHANGEREQUEST
+;             ; PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
+;             PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+;         ^Esc::
+;             ; switchIMEbyID(IMEmap["en"])
+;             ; switchIMEbyID(67699721)
+;             send, {LControl Down}{s}{LControl Up}
+;             ; 适配vim通用操作
+;             ; Send, {Esc}
+;             ; send, {:w!}{Enter}
+;             ; PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+;             ; toggleIME()
+;         return
+;     }
+
+;     return
