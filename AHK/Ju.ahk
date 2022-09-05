@@ -72,28 +72,35 @@ GroupAdd vimGroup, ahk_exe nvim.exe
 GroupAdd vimGroup, ahk_exe nvim-qt.exe
 #IfWinActive ahk_group vimGroup
     SetCapsLockState, alwaysoff
+    Shift::
+        ; Send {LWin Down}{Space}{LWin Up}
+        PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
+    return
     Capslock::
-        Send {LControl Down}
-        KeyWait, CapsLock
-        Send {LControl Up}
-        if ( A_PriorKey = "CapsLock" )
-        {
-            $Esc::
-                ; 0x0050 is WM_INPUTLANGCHANGEREQUEST
-                ; PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
-                PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
-            ^Esc::
-                ; switchIMEbyID(IMEmap["en"])
-                ; switchIMEbyID(67699721)
-                ; send, {LControl Down}{s}{LControl Up}
-                ; send, {LControl Down}{s}{LControl Up}
-                ; 适配vim通用操作
-                Send, {Esc}
-                ; send, {:w!}{Enter}
-                send, {:w!}
-                PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
-                ; toggleIME()
-            return
-        }
+        Send, {Esc}
+        send, {LControl Down}{s}{LControl Up}
+        PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+    return
+    ; Capslock::
+    ;     Send {LControl Down}
+    ;     KeyWait, CapsLock
+    ;     Send {LControl Up}
+    ;     if ( A_PriorKey = "CapsLock" )
+    ;     {
+    ;         $Esc::
+    ;             ; 0x0050 is WM_INPUTLANGCHANGEREQUEST
+    ;             ; PostMessage, 0x50, 0, 0x8040804, , A ;切换为输入法的默认输入状态
+    ;             PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+    ;         ^Esc::
+    ;             ; switchIMEbyID(IMEmap["en"])
+    ;             ; switchIMEbyID(67699721)
+    ;             send, {LControl Down}{s}{LControl Up}
+    ;             ; 适配vim通用操作
+    ;             ; Send, {Esc}
+    ;             ; send, {:w!}{Enter}
+    ;             ; PostMessage, 0x50, 0, 0x4090409, , A ;切换为英文0x4090409=67699721
+    ;             ; toggleIME()
+    ;         return
+    ;     }
 
-        return
+    ;     return
